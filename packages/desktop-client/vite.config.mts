@@ -391,6 +391,10 @@ export default defineConfig(async ({ mode, command }) => {
         include: [reactCompilerInclude],
         // n.b. Must be a string to ensure plugin resolution order. See https://github.com/actualbudget/actual/pull/5853
         presets: [reactCompilerPreset()],
+        // Istanbul instrumentation for e2e coverage, active only when
+        // VITE_COVERAGE=true (vite-plugin-istanbul is a no-op under rolldown).
+        plugins:
+          process.env.VITE_COVERAGE === 'true' ? ['babel-plugin-istanbul'] : [],
       }),
       visualizer({
         template: 'raw-data',

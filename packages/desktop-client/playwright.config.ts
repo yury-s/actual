@@ -12,8 +12,9 @@ export default defineConfig({
   testDir: 'e2e/',
   reporter: process.env.CI
     ? [['blob'], ['list'], ['junit', { outputFile: 'test-results/junit.xml' }]]
-    : [['html', { open: 'never' }]],
+    : [['html', { open: 'never' }], ['list'], ['coverage']],
   use: {
+    coverage: process.env.VITE_COVERAGE ? 'istanbul' : 'off',
     userAgent: 'playwright',
     screenshot: 'only-on-failure',
     browserName: 'chromium',
